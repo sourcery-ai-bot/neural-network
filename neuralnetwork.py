@@ -92,12 +92,13 @@ class NeuralNetwork:
       for j in range(len(self.outputNeurons)):
         fire = 1 if (j == desiredAction) else 0
         lastActivation = self.hiddenNeurons[i].lastActivation
-        weightDeltaH = weightDeltaH + (fire - lastActivation) * lastActivation * (1 - lastActivation) * self.outputNeurons[j].weights[i]
+        weightDeltaH += ((fire - lastActivation) * lastActivation *
+                         (1 - lastActivation) * self.outputNeurons[j].weights[i])
       errorTerm = weightDeltaH * lastActivation * (1 - lastActivation)
       self.hiddenNeurons[i].backwardPropagation(errorTerm,data)
 
 def case(result):
-  return "lowercase" if (0==result) else "uppercase"
+  return "lowercase" if result == 0 else "uppercase"
 
 if __name__ == "__main__":
   nn = NeuralNetwork(8,8,2)
